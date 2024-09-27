@@ -1,0 +1,132 @@
+﻿@model Room
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Room Details</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+	<style>
+		body {
+			background-color: #f8f9fa;
+			font-family: Arial, sans-serif;
+		}
+
+		.container {
+			margin-top: 50px;
+		}
+
+		.card {
+			border-radius: 10px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.card-header {
+			background-color: #007bff;
+			color: #fff;
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+			padding: 1rem;
+		}
+
+		.details-container {
+			padding: 20px;
+		}
+
+			.details-container h3 {
+				margin-bottom: 20px;
+				font-size: 1.5rem;
+				font-weight: 600;
+			}
+
+			.details-container dl {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				grid-gap: 15px;
+				margin-bottom: 30px;
+			}
+
+			.details-container dt {
+				font-weight: bold;
+			}
+
+			.details-container dd {
+				margin-left: 0;
+			}
+
+		.back-button {
+			margin-top: 20px;
+		}
+
+		.no-guests {
+			margin-top: 30px;
+			text-align: center;
+			font-size: 1.2rem;
+			font-weight: 500;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="card">
+			<div class="card-header">
+				Room @Model.Id Details
+			</div>
+			<div class="details-container">
+				<h3>Room Information</h3>
+				<dl class="row">
+					<dt class="col-sm-4">@Html.DisplayNameFor(e => e.Id)</dt>
+					<dd class="col-sm-8">@Html.DisplayFor(e => e.Id)</dd>
+
+					<dt class="col-sm-4">@Html.DisplayNameFor(e => e.Floor)</dt>
+					<dd class="col-sm-8">@Html.DisplayFor(e => e.Floor)</dd>
+
+					<dt class="col-sm-4">@Html.DisplayNameFor(e => e.Price)</dt>
+					<dd class="col-sm-8">@Html.DisplayFor(e => e.Price)</dd>
+
+					<dt class="col-sm-4">@Html.DisplayNameFor(e => e.Type)</dt>
+					<dd class="col-sm-8">@Html.DisplayFor(e => e.Type)</dd>
+
+					<dt class="col-sm-4">@Html.DisplayNameFor(e => e.Status)</dt>
+					<dd class="col-sm-8">@Html.DisplayFor(e => e.Status)</dd>
+				</dl>
+				@if (Model.Guestts.Count > 0)
+				{
+					bool flag = true;
+					<h3>Guest</h3>
+					<ul class="list-group">
+						@foreach (var item in Model.Guestts)
+						{
+							if (item.CheckOutDate == null)
+							{
+								<li class="list-group-item" style="font-weight: bold; color: #ff0000;">@item.FullName</li>
+								<li><img src="@item.ImageUrl" style="width: auto; max-height: 300px;" /></li>
+
+								flag = false;
+							}
+						}
+						@if (flag == true)
+						{
+							<h1 class="alert alert-danger text-center">No One In This Room</h1>
+
+						}
+					</ul> 
+				}
+				else
+				{
+					<h1 class="alert alert-danger text-center">No One In This Room</h1>
+
+				}
+				<a asp-controller="Rooms" asp-action="GetIndexview" class="btn btn-outline-danger back-button">
+					Back to List
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

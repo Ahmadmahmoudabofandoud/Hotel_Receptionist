@@ -1,0 +1,157 @@
+﻿@model Room
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Room</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .card-header {
+            background-color: cyan;
+            color: darkblue;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .btn-outline-danger {
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+
+            .btn-outline-danger:hover {
+                color: #fff;
+                background-color: #dc3545;
+                border-color: #dc3545;
+            }
+
+        #Type {
+            width: 100%;
+            padding: 10px;
+        }
+
+        #Status,
+        #MaxCapacity {
+            width: 100%;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: none;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card col-md-6 offset-md-3">
+            <div class="card-header">
+                Add New Room
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="Rooms" asp-action="AddNew" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Type">Room Type</label>
+                        <select id="Type" asp-for="Type" class="form-control">
+                            <option selected value="Single">Single</option>
+                            <option value="Double">Double</option>
+                            <option value="Triple">Triple</option>
+                        </select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Floor">Floor</label>
+                        <input type="text" asp-for="Floor" class="form-control" />
+                        <span asp-validation-for="Floor" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Price">Price</label>
+                        <input type="text" asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Status">Status</label>
+                        <input type="text" id="Status" asp-for="Status" class="form-control" readonly />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MaxCapacity">Max Capacity</label>
+                        <input type="text" id="MaxCapacity" asp-for="MaxCapacity" class="form-control" readonly />
+                        <span asp-validation-for="MaxCapacity" class="text-danger"></span>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <a asp-controller="Rooms" asp-action="GetIndexView" class="btn btn-outline-danger ml-2">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const typeInput = document.getElementById("Type");
+            const statusInput = document.getElementById("Status");
+            const maxCapacityInput = document.getElementById("MaxCapacity");
+
+            typeInput.addEventListener("change", function () {
+                const selectedType = typeInput.value;
+
+                statusInput.value = "Available";
+
+                if (selectedType === "Single") {
+                    maxCapacityInput.value = "1";
+                } else if (selectedType === "Double") {
+                    maxCapacityInput.value = "2";
+                } else if (selectedType === "Triple") {
+                    maxCapacityInput.value = "3";
+                }
+            });
+
+            // Set initial values for default room type
+            statusInput.value = "Available";
+            maxCapacityInput.value = "1";
+        });
+    </script>
+</body>
+</html>

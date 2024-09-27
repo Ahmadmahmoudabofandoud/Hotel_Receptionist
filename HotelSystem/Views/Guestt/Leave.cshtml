@@ -1,0 +1,120 @@
+﻿@model Guestt
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Check Out</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .details-container {
+            padding: 20px;
+        }
+
+            .details-container h3 {
+                margin-bottom: 20px;
+            }
+
+            .details-container dl {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-gap: 15px;
+                margin-bottom: 30px;
+            }
+
+            .details-container dt {
+                font-weight: bold;
+            }
+
+            .details-container dd {
+                margin-left: 0;
+            }
+
+        .back-button {
+            margin-top: 30px;
+        }
+
+        .check-out-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="mb-0">@Model.FullName Check Out</h1>
+            </div>
+            <div class="details-container">
+                <dl class="row">
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(e => e.ImageUrl)</dt>
+                    <dd class="col-sm-8">
+                        <img src="@Model.ImageUrl" style="width: auto; max-height: 300px;" />
+                    </dd>
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(e => e.FullName)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(e => e.FullName)</dd>
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(e => e.NationalId)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(e => e.NationalId)</dd>
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(e => e.PhoneNum)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(e => e.PhoneNum)</dd>
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(e => e.CheckInDate)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(e => e.CheckInDate)</dd>
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(e => e.RoomId)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(e => e.Room.Id)</dd>
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(e => e.Room.Type)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(e => e.Room.Type)</dd>
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(e => e.Room.Floor)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(e => e.Room.Floor)</dd>
+
+                    <dt class="col-sm-4">@Html.DisplayNameFor(e => e.Room.Price)</dt>
+                    <dd class="col-sm-8">$@Html.DisplayFor(e => e.Room.Price)</dd>
+
+                </dl>
+
+                
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <form method="post" asp-controller="Guestt" asp-action="LeaveHotel">
+                        <input type="hidden" asp-for="Id" />
+                        <button type="submit" class="btn btn-danger check-out-button">Check Out</button>
+                    </form>
+                    <a asp-controller="Guestt" asp-action="GetIndexview" class="btn btn-outline-danger back-button">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

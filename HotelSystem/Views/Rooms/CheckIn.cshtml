@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Room>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .table {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            .table thead th {
+                background-color: #f8f9fa;
+                border: none;
+                color: #333;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            .table tbody tr:hover {
+                background-color: #f8f9fa;
+                transition: background-color 0.2s ease;
+            }
+
+            .table tbody td {
+                color: #555;
+                vertical-align: middle;
+            }
+
+        .status-available {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .btn-outline-success {
+            border-color: #28a745;
+            color: #28a745;
+        }
+
+            .btn-outline-success:hover {
+                background-color: #28a745;
+                color: white;
+            }
+
+        .alert-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+    <title>Available Rooms</title>
+</head>
+<body>
+    <div class="container">
+        @if (Model.Count() > 0)
+        {
+            <h1>Available Rooms</h1>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(e => e.Id)</th>
+                        <th>@Html.DisplayNameFor(e => e.Type)</th>
+                        <th>@Html.DisplayNameFor(e => e.Floor)</th>
+                        <th>@Html.DisplayNameFor(e => e.Price)</th>
+                        <th>@Html.DisplayNameFor(e => e.Status)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Type</td>
+                            <td>@item.Floor</td>
+                            <td>@item.Price</td>
+                            <td><span class="status-available"><i class="fas fa-check-circle"></i> @item.Status</span></td>
+                            <td>
+                                <a asp-controller="Guestt"
+                                   asp-action="GetReservationView"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-outline-success"
+                                   title="Check In">
+                                    <i class="fas fa-sign-in-alt"></i> Check In
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h1 class="alert alert-danger text-center">There are no available rooms</h1>
+        }
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

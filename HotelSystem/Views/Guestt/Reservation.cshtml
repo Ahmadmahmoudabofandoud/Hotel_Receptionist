@@ -1,0 +1,115 @@
+﻿@model Guestt
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Make a Reservation</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+	<style>
+		.container {
+			margin-top: 50px;
+		}
+
+		.card {
+			border-radius: 10px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.card-header {
+			background-color: cyan;
+			color: darkblue;
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.form-group label {
+			font-weight: bold;
+		}
+
+		.btn-group {
+			margin-top: 10px;
+		}
+
+		.img-preview {
+			max-height: 300px;
+			object-fit: cover;
+			border-radius: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="card col-md-6 offset-md-3">
+			<div class="card-header">
+				Make a Reservation 
+			</div>
+			<div class="card-body">
+				<form method="post" asp-controller="Guestt" asp-action="MakeReservation" enctype="multipart/form-data">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="form-group">
+						<label asp-for="FullName">Full Name</label>
+						<input type="text" asp-for="FullName" class="form-control" />
+						<span asp-validation-for="FullName" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="CheckInDate">Check In Date</label>
+						<input asp-for="CheckInDate" class="form-control" />
+						<span asp-validation-for="CheckInDate" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="NationalId">National ID</label>
+						<input asp-for="NationalId" class="form-control" />
+						<span asp-validation-for="NationalId" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="PhoneNum">Phone Number</label>
+						<input asp-for="PhoneNum" class="form-control" />
+						<span asp-validation-for="PhoneNum" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Gender">Gender</label>
+						<select asp-for="Gender" class="form-control">
+							<option value="Male" selected>Male</option>
+							<option value="Female">Female</option>
+						</select>
+						<span asp-validation-for="Gender" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="ImageUrl">Profile Image</label>
+						<input type="file" name="imageFile" id="imageFile" accept=".png,.jpg" onchange="AddImage()" class="form-control" />
+						<span asp-validation-for="ImageUrl" class="text-danger"></span>
+					</div>
+
+					<div class="col-md-6 offset-md-3 mt-3">
+						<img src="" id="empImage" class="img-preview" style="width: auto; max-height: 300px;" />
+					</div>
+
+					<div class="btn-group">
+						<button type="submit" class="btn btn-primary">Add</button>
+						<a asp-controller="Rooms" asp-action="GetCheckInView" class="btn btn-outline-danger ml-2">Back to List</a>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script>
+		function AddImage() {
+			document.getElementById('empImage').src = window.URL.createObjectURL(document.getElementById('imageFile').files[0]);
+		}
+	</script>
+</body>
+</html>
